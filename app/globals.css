@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Flick — Design System v1.0, expressed as a Tailwind theme.
+
+   Every value is copied from the Claude Design project's `tokens/*.css`. Each
+   entry below becomes a utility, so components never reach for a raw value:
+   `--color-ink-800` → `bg-ink-800`, `--text-display-xl` → `text-display-xl`.
+
+   The design system's 4px base unit lines up exactly with Tailwind's default
+   spacing scale, so `--s-6` (24px) is simply `p-6`. No spacing overrides needed.
+   ========================================================================= */
+
+@theme {
+  /* ── Ink — surfaces. Three near-blacks stacked for depth. ───────────── */
+  --color-ink-900: #070e14;
+  --color-ink-850: #0a141d;
+  --color-ink-800: #0d1a26;
+  --color-ink-700: #14232f;
+  --color-ink-600: #1e3140;
+  --color-ink-500: #2c4354;
+
+  /* ── Accent — never more than 5% of a viewport, never body text. ────── */
+  --color-green-600: #00a876;
+  --color-green-500: #00c48c;
+  --color-green-400: #3fe0ae;
+  --color-green-glow: rgba(0, 196, 140, 0.2);
+  --color-green-wash: rgba(0, 196, 140, 0.08);
+
+  /* ── Bone — text. Pure white is never used. ─────────────────────────── */
+  --color-bone-100: #f4f1ea;
+  --color-bone-200: #d2d6da;
+  --color-bone-300: #a8b0b8;
+  --color-bone-400: #6b767f;
+
+  /* ── Signal — rationed. Red is the declined moment, once per page. ──── */
+  --color-signal-red: #ff5c4d;
+  --color-signal-amber: #ffb84d;
+
+  /* ── Type. next/font supplies the family names. ─────────────────────── */
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-body: var(--font-satoshi), "Helvetica Neue", sans-serif;
+  --font-mono: var(--font-martian-mono), ui-monospace, monospace;
+  --default-font-family: var(--font-body);
+
+  /* Display sizes carry their own leading and tracking. Tailwind's defaults
+     already match the body scale: text-xs .75, text-sm .875, text-lg 1.125. */
+  --text-display-xl: clamp(2.5rem, 7vw, 5.5rem);
+  --text-display-xl--line-height: 0.95;
+  --text-display-xl--letter-spacing: -0.02em;
+
+  --text-display-l: clamp(2rem, 5vw, 3.5rem);
+  --text-display-l--line-height: 1.05;
+  --text-display-l--letter-spacing: -0.015em;
+
+  --text-display-m: clamp(1.5rem, 3.5vw, 2.25rem);
+  --text-display-m--line-height: 1.1;
+  --text-display-m--letter-spacing: -0.01em;
+
+  --text-statement: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-statement--line-height: 1.15;
+  --text-statement--letter-spacing: -0.01em;
+
+  --text-statement-l: clamp(1.75rem, 4vw, 2.75rem);
+  --text-statement-l--line-height: 1.1;
+  --text-statement-l--letter-spacing: -0.015em;
+
+  --text-persona: clamp(1.5rem, 3vw, 2rem);
+  --text-persona--line-height: 1.2;
+
+  --text-heading: clamp(1.25rem, 2vw, 1.5rem);
+  --text-heading--line-height: 1.3;
+  --text-heading--letter-spacing: -0.01em;
+
+  /* Tight negative tracking on display, wide positive on mono labels. */
+  --tracking-display: -0.02em;
+  --tracking-heading: -0.01em;
+  --tracking-mono: 0.06em;
+  --tracking-badge: 0.08em;
+  --tracking-column: 0.1em;
+  --tracking-label: 0.12em;
+  --tracking-legal: 0.14em;
+  --tracking-eyebrow: 0.16em;
+
+  --leading-body: 1.6;
+
+  /* ── Radius — controls are pills, surfaces 14px, card object 22px. ──── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 22px;
+
+  /* ── Elevation. Surfaces never carry a shadow; the card object does. ── */
+  --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    8px 0 32px -12px var(--color-green-glow);
+  --shadow-screen: 0 24px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(244, 241, 234, 0.14);
+  --shadow-receipt: 0 12px 30px rgba(0, 0, 0, 0.45);
+  --shadow-receipt-ok: 0 18px 44px rgba(0, 196, 140, 0.14),
+    0 12px 30px rgba(0, 0, 0, 0.5);
+  --shadow-action: 0 6px 20px var(--color-green-glow);
+
+  /* ── Measure. 1120px content, 62ch prose. ───────────────────────────── */
+  --container-measure: 1120px;
+  --container-prose: 62ch;
+
+  /* ── Motion. No spring, no bounce, no parallax. ─────────────────────── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* One orchestrated page-load, not scattered micro-interactions. The stagger
+     is baked in so components never fight utility ordering with a delay. */
+  --animate-rise-0: flick-rise 600ms var(--ease-out) both;
+  --animate-rise-1: flick-rise 600ms var(--ease-out) 80ms both;
+  --animate-rise-2: flick-rise 600ms var(--ease-out) 180ms both;
+  --animate-rise-3: flick-rise 600ms var(--ease-out) 260ms both;
+  --animate-rise-4: flick-rise 600ms var(--ease-out) 340ms both;
+  --animate-settle: flick-settle 900ms var(--ease-out) 200ms both;
+  --animate-reveal: flick-rise 280ms var(--ease-out) both;
+
+  @keyframes flick-rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes flick-settle {
+    from {
+      opacity: 0;
+      transform: translateY(28px) rotate(-3deg) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* The only gradient in the system belongs to the card object. */
+@utility bg-card-object {
+  background-image: linear-gradient(145deg, #1a2c3a, #0d1a26 55%, #060c12);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    position: relative;
+    background: var(--color-ink-900);
+    color: var(--color-bone-100);
+    line-height: var(--leading-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grain overlay: kills banding in the dark gradients and adds tactility.
+     The one texture in the system, at 3.5%. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='128' height='128' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a {
+    color: var(--color-green-500);
+    text-decoration: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-green-500);
+    outline-offset: 3px;
+  }
+
+  /* Set by <CustomCursor> once it has a pointer to replace — so a touch device
+     or a visitor without JavaScript is never left without a cursor. */
+  html[data-cursor="custom"] * {
+    cursor: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
