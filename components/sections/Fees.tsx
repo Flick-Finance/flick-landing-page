@@ -1,21 +1,23 @@
+import { feeColumns, feeRows, feesHead } from "@/lib/content";
 import { DataTable } from "../ui/DataTable";
 import { Section } from "../ui/Section";
 import { SectionHead } from "../ui/SectionHead";
-import { feeColumns, feeRows } from "@/lib/content";
 
 export function Fees() {
   return (
-    <Section id="fees" divider>
+    <Section id="fees" divider rhythm="lg">
       <SectionHead
-        num="03"
-        title="What it costs"
-        lede="One fee, shown before you confirm. Compare it to what you pay today."
+        eyebrow={feesHead.eyebrow}
+        title={feesHead.title}
+        lede={feesHead.lede}
       />
-      <DataTable
-        caption="Cost of moving $500 into dollars, by route"
-        columns={feeColumns}
-        rows={feeRows}
-      />
+      <div className="rounded-2xl border border-bone-100/8 bg-panel p-4 max-sm:p-2">
+        <DataTable
+          caption="Cost of moving $500 into dollars, by route"
+          columns={feeColumns}
+          rows={feeRows}
+        />
+      </div>
     </Section>
   );
 }
