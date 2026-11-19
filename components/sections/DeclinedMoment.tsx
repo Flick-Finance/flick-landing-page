@@ -10,10 +10,10 @@ import { Section } from "../ui/Section";
 export function DeclinedMoment() {
   return (
     <Section rhythm="tight">
-      <div className="grid grid-cols-2 items-center gap-12 rounded-lg border border-ink-600 bg-ink-800 p-12 max-lg:grid-cols-1 max-lg:gap-8 max-lg:p-8">
+      <div className="grid grid-cols-2 items-center gap-12 rounded-2xl border border-bone-100/8 bg-panel p-14 max-lg:grid-cols-1 max-lg:gap-10 max-lg:p-8">
         <div>
           <Eyebrow tone="alert">Transaction declined</Eyebrow>
-          <p className="my-4 font-display text-statement">
+          <p className="mb-5 mt-5 text-title font-bold text-bone-100">
             You had the money. The card still said no.
           </p>
           <p className="max-w-[52ch] text-bone-300">

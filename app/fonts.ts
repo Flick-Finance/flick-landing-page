@@ -10,9 +10,13 @@ import localFont from "next/font/local";
  * this file should reference a family by name.
  */
 
-/** Emotional statements only. Never bold, never below 24px. */
+/**
+ * Emotional statements only. Never bold, never below 24px. The italic cut is
+ * the lead word that opens a display headline ("Spend" / "dollars anywhere").
+ */
 export const instrumentSerif = Instrument_Serif({
   weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-instrument-serif",

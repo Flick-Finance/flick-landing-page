@@ -13,6 +13,11 @@ type TabsProps = {
   label: string;
   /** Namespaces the generated tab / panel ids. */
   idPrefix: string;
+  /**
+   * `pill` is the segmented control on ink. `plain` is a row of text tabs for
+   * the bone band — the selected one goes full-strength ink.
+   */
+  variant?: "pill" | "plain";
 };
 
 export const tabId = (prefix: string, id: string) => `${prefix}-tab-${id}`;
@@ -22,7 +27,15 @@ export const panelId = (prefix: string, id: string) => `${prefix}-panel-${id}`;
  * A controlled tablist with automatic activation — arrow keys move the
  * selection, which is the expected behaviour when panels are cheap to swap.
  */
-export function Tabs({ items, value, onChange, label, idPrefix }: TabsProps) {
+export function Tabs({
+  items,
+  value,
+  onChange,
+  label,
+  idPrefix,
+  variant = "pill",
+}: TabsProps) {
+  const plain = variant === "plain";
   const listRef = useRef<HTMLDivElement>(null);
 
   function focusTab(id: string) {
@@ -54,7 +67,11 @@ export function Tabs({ items, value, onChange, label, idPrefix }: TabsProps) {
       role="tablist"
       aria-label={label}
       onKeyDown={handleKeyDown}
-      className="inline-flex max-w-full gap-1 rounded-full border border-ink-600 bg-ink-800 p-1"
+      className={
+        plain
+          ? "flex max-w-full flex-wrap justify-center gap-x-6 gap-y-2"
+          : "inline-flex max-w-full gap-1 rounded-full border border-bone-100/8 bg-ink-800 p-1.5"
+      }
     >
       {items.map((item) => {
         const selected = item.id === value;
@@ -68,12 +85,16 @@ export function Tabs({ items, value, onChange, label, idPrefix }: TabsProps) {
             aria-controls={panelId(idPrefix, item.id)}
             tabIndex={selected ? 0 : -1}
             onClick={() => onChange(item.id)}
-            className={cn(
-              "cursor-pointer whitespace-nowrap rounded-full border-none px-6 py-2 font-body text-sm",
-              "transition-colors duration-280 ease-out hover:text-bone-100 max-sm:px-4 max-sm:text-xs",
+            className={plain ? cn(
+              "cursor-pointer whitespace-nowrap border-none bg-transparent p-0 font-body text-xl tracking-heading",
+              "transition-colors duration-160 ease-out max-sm:text-base",
+              selected ? "font-bold text-ink-900" : "font-medium text-bone-400 hover:text-ink-600",
+            ) : cn(
+              "cursor-pointer whitespace-nowrap rounded-full border-none px-6 py-3 font-body text-base",
+              "transition-colors duration-280 ease-out max-sm:px-4 max-sm:py-2.5 max-sm:text-sm",
               selected
-                ? "bg-ink-600 font-bold text-bone-100"
-                : "bg-transparent font-medium text-bone-300",
+                ? "bg-bone-100 font-bold text-ink-900"
+                : "bg-transparent font-medium text-bone-300 hover:text-bone-100",
             )}
           >
             {item.label}
